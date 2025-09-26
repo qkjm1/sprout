@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.repository.DiaryRepository">
+
+	<select id="AllbyId" resultType="com.example.demo.vo.DiaryEntry"> 
+		SELECT * FROM
+		diary_entry WHERE usrId = #{id} <if test="limitForm >= 0">
+			LIMIT #{limitForm},#{limitTake};
+		</if>
+	</select>
+
+	<!-- created_at / updated_at 는 DB 기본값/자동갱신 사용 -->
+	<insert id="AddDiaryEntry" parameterType="com.example.demo.vo.DiaryEntry"
+		useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+		INSERT INTO diary_entry
+		(usr_id, title, content, mood)
+		VALUES
+		(#{usrId}, #{title}, #{content}, #{mood})
+	</insert>
+
+	<insert id="AddDiaryWeather"
+		parameterType="com.example.demo.vo.DiaryWeather"
+		useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO diary_weather (
+		diary_id, location_name, weather, temperature_c
+		) VALUES (
+		#{diaryId}, #{locationName}, #{weather}, #{temperatureC}
+		)
+	</insert>
+
+</mapper>

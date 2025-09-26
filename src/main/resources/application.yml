@@ -1,0 +1,20 @@
+server:
+  port: 8080
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/sprout?useUnicode=true&characterEncoding=utf8&autoReconnect=true&serverTimezone=Asia/Seoul
+    username: sprout
+    password: 2019133008
+mybatis:
+  type-aliases-package: com.example.demo.vo
+  mapper-locations: classpath:/mappers/**/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+kakao:
+  rest-key: 39efa3464acadbc386d2a4a6ccb7e9ec
+  base-url: https://dapi.kakao.com
