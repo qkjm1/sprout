@@ -15,6 +15,10 @@ mybatis:
   mapper-locations: classpath:/mappers/**/*.xml
   configuration:
     map-underscore-to-camel-case: true
-kakao:
-  rest-key: 39efa3464acadbc386d2a4a6ccb7e9ec
-  base-url: https://dapi.kakao.com
+app :
+  kakao:
+    rest-api-key: 285dc612b6af706b736a613b4da33ba5
+    base-url: https://dapi.kakao.com
+  openmeteo:
+    base-url: https://api.open-meteo.com
+    timezone: Asia/Seoul

@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.service.DiaryService;
 import com.example.demo.vo.DiaryEntry;
-import com.example.demo.vo.DiaryWeather;
 
 import lombok.RequiredArgsConstructor;
 
@@ -32,10 +31,10 @@ public class DiaryController {
 		return "ok";
 	}
 
+	// 다이어리 추가 (	날씨 + 내용 )
 	@PostMapping("/add")
-	public ResponseEntity<?> addDiary(@RequestBody DiaryEntry e, DiaryWeather w) {
-		long e_Id = diaryService.AddDiaryEntry(e);		
-		long w_Id = diaryService.AddDiaryWeather(w);
+	public ResponseEntity<?> addDiary(@RequestBody DiaryEntry e) {
+		long e_Id = diaryService.AddDiaryEntry(e);	
 		
 		return ResponseEntity.ok(e_Id);
 	}
@@ -50,11 +49,12 @@ public class DiaryController {
 		/*
 		 * 유저 기준으로다이어리가지고오기 다이어리가 없을 경우 글이 존재하지않음 한 페이지에 10개씩 보여주기 무한리스트하기 날짜별로 묶기 카테고리
 		 */
-
 		List<DiaryEntry> allDaisrybyPage = diaryService.AllbyId(id, listInApage, page);
 
+		// 년/월/주 로 리스트 가져오기
 		List<DiaryEntry> allDaisrybyDate = diaryService.AllbyId(id, listInApage, page);
 
+		// page 없이 전체리스트 가지고오기(따로 뺄 예정)
 		List<DiaryEntry> allDaisryList = diaryService.AllbyId(id, listInApage, page);
 
 		return allDaisrybyPage;

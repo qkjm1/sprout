@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.repository.DiaryRepository;
 import com.example.demo.vo.DiaryEntry;
-import com.example.demo.vo.DiaryWeather;
 
 import lombok.RequiredArgsConstructor;
 
@@ -30,9 +29,4 @@ public class DiaryService {
 		return e.getId();
 	}
 	
-	public long AddDiaryWeather(DiaryWeather w) {
-		diaryRepository.AddDiaryWeather(w);
-		return w.getId();
-	}
-
 }

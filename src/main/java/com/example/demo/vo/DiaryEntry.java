@@ -16,7 +16,10 @@ public class DiaryEntry {
  private int usrId;
  private String title;
  private String content;
- private String mood;
+ private String mood;   //느낌
  private LocalDateTime createdAt;
- private LocalDateTime updatedAt;
+ private LocalDateTime updatedAt; 
+ private String weather;   // 날씨
+ private double temperature_c;  // 온도섭씨
+ 
 }

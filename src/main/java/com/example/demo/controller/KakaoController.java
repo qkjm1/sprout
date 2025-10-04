@@ -1,30 +1,31 @@
+// src/main/java/com/example/demo/controller/KakaoController.java
 package com.example.demo.controller;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
-
 import com.example.demo.dto.RegionCodeRes;
+import com.example.demo.dto.RegionWeatherDto;
 import com.example.demo.service.KakaoService;
-
+import com.example.demo.service.GeoWeatherService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
-@Controller
-@RequestMapping("/diary")
+@RestController
+@RequestMapping("/api")
+@RequiredArgsConstructor
 public class KakaoController {
 
-	@Autowired
-	private KakaoService kakaoService;
+    private final KakaoService kakaoService;
+    private final GeoWeatherService geoWeatherService;
 
-	@GetMapping("/coord2region")
-	public Mono<RegionCodeRes> coord2region(@RequestParam double lat, @RequestParam double lon) {
-		return kakaoService.coord2region(lon, lat);
-	}
+    /** (A) 좌표 → 행정동 (카카오) */
+    @GetMapping("/geo/reverse")
+    public Mono<RegionCodeRes> reverse(@RequestParam double lat, @RequestParam double lon) {
+        return kakaoService.coord2Region(lat, lon);
+    }
 
+    /** (B) 좌표 → 행정동 + 현재날씨 (카카오 + Open-Meteo) */
+    @GetMapping("/weather")
+    public Mono<RegionWeatherDto> weather(@RequestParam double lat, @RequestParam double lon) {
+        return geoWeatherService.getRegionWithWeather(lat, lon);
+    }
 }
